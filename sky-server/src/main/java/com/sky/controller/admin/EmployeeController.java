@@ -91,4 +91,14 @@ public class EmployeeController {
         PageResult<Employee> pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
     }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工")
+    public Result<String> status(@PathVariable Integer status, Long id) {
+        int count = employeeService.startOrStop(status, id);
+        if (count != 1) {
+            return Result.error("修改失败");
+        }
+        return Result.success("修改成功");
+    }
 }
