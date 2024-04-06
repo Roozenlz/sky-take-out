@@ -101,4 +101,22 @@ public class EmployeeController {
         }
         return Result.success("修改成功");
     }
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询员工")
+    public Result<Employee> queryById(@PathVariable Long id) {
+        Employee employee = employeeService.queryById(id);
+        return Result.success(employee);
+    }
+
+    @PutMapping
+    @ApiOperation("修改员工信息")
+    public Result<String> update(@RequestBody EmployeeDTO employeeDTO) {
+        int count = employeeService.update(employeeDTO);
+        if (count != 1) {
+            return Result.error("修改失败");
+        }
+        return Result.success("修改成功");
+    }
+
 }
